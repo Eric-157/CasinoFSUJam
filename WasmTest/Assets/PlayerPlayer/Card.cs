@@ -16,7 +16,7 @@ public enum CardKind
 
 public enum CardSoundEffect
 {
-    Basic, Anomaly, Explodoing, Magic, Pokemon, Uno, Yugioh
+    Basic, Anomaly, Exploding, Magic, Pokemon, Uno, Yugioh
 }
 
 public static class CardExtentions
@@ -64,7 +64,7 @@ public static class CardExtentions
             Card.Pot or Card.Monster => CardSoundEffect.Magic,
             Card.Trainer or Card.Energy => CardSoundEffect.Pokemon,
             Card.Jonkler or Card.Empty => CardSoundEffect.Anomaly,
-            Card.Defuse or Card.Explode => CardSoundEffect.Explodoing,
+            Card.Defuse or Card.Explode => CardSoundEffect.Exploding,
             _ => CardSoundEffect.Basic,
         };
     }
