@@ -49,9 +49,9 @@ public static class CardExtentions
     {
         return card switch
         {
-            Card.Uno2 or Card.Uno4 or Card.Pot or Card.Empty
-            or Card.Trainer or Card.Energy or Card.Monster
-            or Card.Jonkler => CardKind.Anomoly,
+            Card.Uno2 or Card.Uno4 or Card.Pot or Card.Empty or
+            Card.Trainer or Card.Energy or Card.Monster or Card.Jonkler or
+            Card.Defuse or Card.Explode => CardKind.Anomoly,
             _ => CardKind.Basic
         };
     }
@@ -61,8 +61,10 @@ public static class CardExtentions
         return card switch
         {
             Card.Uno2 or Card.Uno4 => CardSoundEffect.Uno,
-            Card.Pot => CardSoundEffect.Magic,
-            Card.Empty => CardSoundEffect.Anomaly,
+            Card.Pot or Card.Monster => CardSoundEffect.Magic,
+            Card.Trainer or Card.Energy => CardSoundEffect.Pokemon,
+            Card.Jonkler or Card.Empty => CardSoundEffect.Anomaly,
+            Card.Defuse or Card.Explode => CardSoundEffect.Explodoing,
             _ => CardSoundEffect.Basic,
         };
     }
