@@ -1,11 +1,12 @@
 using System;
 using System.Linq;
 using Fusion;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
+    public AudioSource audioSource;
+
     private Deck deck = new();
 
     private int slotIndex;
@@ -54,7 +55,7 @@ public class Player : NetworkBehaviour
             addToHand(deck.DrawAny());
 
             //im so sorry.
-            AnonomlyEffect(hand[handLength-1]);
+            AnonomlyEffect(hand[handLength - 1]);
 
 
             if (handTotal > 21)
@@ -108,6 +109,8 @@ public class Player : NetworkBehaviour
         hand.Set(handLength, card);
         handLength++;
         handTotal += card.Value();
+        var clip = Resources.Load<AudioClip>($"CardDrawSounds/{card.SoundEffect()}");
+        audioSource.PlayOneShot(clip, 1);
     }
 
     //prototyping discarding
@@ -164,16 +167,16 @@ public class Player : NetworkBehaviour
 
     public void AnonomlyEffect(Card drawnCard)
     {
-        if(drawnCard == Card.Uno2)
+        if (drawnCard == Card.Uno2)
         {
-            removeFromHand(handLength-1);
-            removeFromHand(handLength-1);
-            
+            removeFromHand(handLength - 1);
+            removeFromHand(handLength - 1);
+
         }
-        if(drawnCard == Card.Uno4)
+        if (drawnCard == Card.Uno4)
         {
-            removeFromHand(handLength-1);
-            for(int i = 0; i < 4;i++)
+            removeFromHand(handLength - 1);
+            for (int i = 0; i < 4; i++)
             {
                 if (handLength < 8)
                 {
@@ -181,10 +184,10 @@ public class Player : NetworkBehaviour
                 }
             }
         }
-        if(drawnCard == Card.Pot)
+        if (drawnCard == Card.Pot)
         {
-            removeFromHand(handLength-1);
-            for(int i = 0; i < 2;i++)
+            removeFromHand(handLength - 1);
+            for (int i = 0; i < 2; i++)
             {
                 if (handLength < 8)
                 {

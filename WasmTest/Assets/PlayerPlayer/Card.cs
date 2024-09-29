@@ -1,6 +1,4 @@
 //added some of anomolies here
-using JetBrains.Annotations;
-
 public enum Card
 {
     ClubA, Club2, Club3, Club4, Club5, Club6, Club7, Club8, Club9, Club10, ClubJ, ClubK, ClubQ,
@@ -14,6 +12,11 @@ public enum CardKind
 {
     Basic,
     Anomoly,
+}
+
+public enum CardSoundEffect
+{
+    Basic, Anomaly, Explodoing, Magic, Pokemon, Uno, Yugioh
 }
 
 public static class CardExtentions
@@ -44,10 +47,21 @@ public static class CardExtentions
     //giving anomolies the anomoly type
     public static CardKind Kind(this Card card)
     {
-        return card switch 
-        { 
+        return card switch
+        {
             Card.Uno2 or Card.Uno4 or Card.Pot or Card.Empty => CardKind.Anomoly,
-            _ => CardKind.Basic 
+            _ => CardKind.Basic
+        };
+    }
+
+    public static CardSoundEffect SoundEffect(this Card card)
+    {
+        return card switch
+        {
+            Card.Uno2 or Card.Uno4 => CardSoundEffect.Uno,
+            Card.Pot => CardSoundEffect.Magic,
+            Card.Empty => CardSoundEffect.Anomaly,
+            _ => CardSoundEffect.Basic,
         };
     }
 }
