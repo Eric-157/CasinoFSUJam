@@ -59,7 +59,7 @@ public class Player : NetworkBehaviour
             StartCoroutine(Ability());
 
 
-            
+
 
             inputs.Action = Action.None;
         }
@@ -110,9 +110,9 @@ public class Player : NetworkBehaviour
         var clip = Resources.Load<AudioClip>($"CardDrawSounds/{card.SoundEffect()}");
         audioSource.PlayOneShot(clip, 1);
         if (handTotal > 21)
-            {
-                playerStatus = PlayerStatus.Bust;
-            }
+        {
+            playerStatus = PlayerStatus.Bust;
+        }
     }
 
     //prototyping discarding
@@ -193,42 +193,42 @@ public class Player : NetworkBehaviour
                 }
             }
         }
-          if(hand[handLength-1] == Card.Trainer)
+        if (hand[handLength - 1] == Card.Trainer)
         {
-            for(int i = 0; i < handLength;i++)
+            for (int i = 0; i < handLength; i++)
             {
-                removeFromHand(handLength-i-1);
+                removeFromHand(handLength - i - 1);
             }
             addToHand(deck.DrawBasic());
             addToHand(deck.DrawBasic());
         }
-        if(hand[handLength-1] == Card.Energy)
+        if (hand[handLength - 1] == Card.Energy)
         {
 
         }
-        if(hand[handLength-1] == Card.Monster)
+        if (hand[handLength - 1] == Card.Monster)
         {
 
         }
-        if(hand[handLength-1] == Card.Jonkler)
+        if (hand[handLength - 1] == Card.Jonkler)
         {
-            int temp = UnityEngine.Random.Range(0,2);
+            int temp = UnityEngine.Random.Range(0, 2);
             if (temp == 0)
             {
-                removeFromHand(handLength-2);
-                
+                removeFromHand(handLength - 2);
+
             }
             if (temp == 1)
             {
                 addToHand(deck.DrawBasic());
             }
-            
+
         }
-        if(hand[handLength-1] == Card.Defuse)
+        if (hand[handLength - 1] == Card.Defuse)
         {
-            removeFromHand(handLength-2);
+            removeFromHand(handLength - 2);
         }
-        if(hand[handLength-1] == Card.Explode)
+        if (hand[handLength - 1] == Card.Explode)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -251,5 +251,5 @@ public class Player : NetworkBehaviour
     [Networked]
     public RoundStatus roundStatus { get; set; }
 
-    
+
 }
