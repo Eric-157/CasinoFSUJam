@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Fusion;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class Player : NetworkBehaviour
             addToHand(deck.DrawAny());
 
             //im so sorry.
-            AnonomlyEffect(hand[handLength - 1]);
+            StartCoroutine(Ability());
 
 
             if (handTotal > 21)
@@ -162,20 +163,16 @@ public class Player : NetworkBehaviour
         Resetting,
     }
 
-    [Networked]
-    public RoundStatus roundStatus { get; set; }
-
     public void AnonomlyEffect(Card drawnCard)
     {
         if (drawnCard == Card.Uno2)
         {
-            removeFromHand(handLength - 1);
-            removeFromHand(handLength - 1);
+            removeFromHand(handLength - 2);
+            removeFromHand(handLength - 3);
 
         }
         if (drawnCard == Card.Uno4)
         {
-            removeFromHand(handLength - 1);
             for (int i = 0; i < 4; i++)
             {
                 if (handLength < 8)
@@ -186,14 +183,68 @@ public class Player : NetworkBehaviour
         }
         if (drawnCard == Card.Pot)
         {
-            removeFromHand(handLength - 1);
             for (int i = 0; i < 2; i++)
             {
                 if (handLength < 8)
                 {
-                    addToHand(deck.DrawAnomoly());
+                    addToHand(deck.DrawBasic());
                 }
             }
         }
+          if(hand[handLength-1] == Card.Trainer)
+        {
+            for(int i = 0; i < handLength;i++)
+            {
+                removeFromHand(handLength-i-1);
+            }
+            addToHand(deck.DrawBasic());
+            addToHand(deck.DrawBasic());
+        }
+        if(hand[handLength-1] == Card.Energy)
+        {
+
+        }
+        if(hand[handLength-1] == Card.Monster)
+        {
+
+        }
+        if(hand[handLength-1] == Card.Jonkler)
+        {
+            int temp = UnityEngine.Random.Range(0,2);
+            if (temp == 0)
+            {
+                removeFromHand(handLength-2);
+            }
+            if (temp == 1)
+            {
+                addToHand(deck.DrawBasic());
+            }
+            
+        }
+        if(hand[handLength-1] == Card.Defuse)
+        {
+            removeFromHand(handLength-2);
+        }
+        if(hand[handLength-1] == Card.Explode)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+
+                addToHand(deck.DrawBasic());
+            }
+        }
+
     }
+
+    private IEnumerator Ability()
+    {
+        yield return new WaitForSeconds(1);
+        AnonomlyEffect(hand[handLength - 1]);
+    }
+
+
+    [Networked]
+    public RoundStatus roundStatus { get; set; }
+
+    
 }

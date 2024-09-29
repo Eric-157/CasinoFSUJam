@@ -5,7 +5,7 @@ public enum Card
     SpadeA, Spade2, Spade3, Spade4, Spade5, Spade6, Spade7, Spade8, Spade9, Spade10, SpadeJ, SpadeK, SpadeQ,
     DiamondA, Diamond2, Diamond3, Diamond4, Diamond5, Diamond6, Diamond7, Diamond8, Diamond9, Diamond10, DiamondJ, DiamondK, DiamondQ,
     HeartA, Heart2, Heart3, Heart4, Heart5, Heart6, Heart7, Heart8, Heart9, Heart10, HeartJ, HeartK, HeartQ,
-    Uno2, Uno4, Pot, Empty,
+    Uno2, Uno4, Pot, Empty,  Trainer, Energy, Monster, Jonkler, Defuse, Explode,
 }
 
 public enum CardKind
@@ -32,7 +32,7 @@ public static class CardExtentions
             Card.Club5 or Card.Spade5 or Card.Diamond5 or Card.Heart5 => 5,
             Card.Club6 or Card.Spade6 or Card.Diamond6 or Card.Heart6 => 6,
             Card.Club7 or Card.Spade7 or Card.Diamond7 or Card.Heart7 => 7,
-            Card.Club8 or Card.Spade8 or Card.Diamond8 or Card.Heart8 => 8,
+            Card.Club8 or Card.Spade8 or Card.Diamond8 or Card.Heart8 or Card.Monster => 8,
             Card.Club9 or Card.Spade9 or Card.Diamond9 or Card.Heart9 => 9,
 
             Card.Club10 or Card.Spade10 or Card.Diamond10 or Card.Heart10 or
@@ -49,7 +49,9 @@ public static class CardExtentions
     {
         return card switch
         {
-            Card.Uno2 or Card.Uno4 or Card.Pot or Card.Empty => CardKind.Anomoly,
+            Card.Uno2 or Card.Uno4 or Card.Pot or Card.Empty
+            or Card.Trainer or Card.Energy or Card.Monster 
+            or Card.Jonkler => CardKind.Anomoly,
             _ => CardKind.Basic
         };
     }
