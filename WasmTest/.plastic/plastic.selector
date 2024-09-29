@@ -1,0 +1,4 @@
+repository "WasmTest@Noool@cloud"
+  path "/"
+    br "/main"
+    co "/main"
