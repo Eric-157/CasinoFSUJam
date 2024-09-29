@@ -56,10 +56,7 @@ public class Player : NetworkBehaviour
             addToHand(deck.DrawAny());
 
             //im so sorry.
-            StartCoroutine(Ability());
-
-
-
+            Ability();
 
             inputs.Action = Action.None;
         }
