@@ -56,7 +56,7 @@ public class Player : NetworkBehaviour
             addToHand(deck.DrawAny());
 
             //im so sorry.
-            Ability();
+            AnonomlyEffect(hand[handLength - 1]);
 
             inputs.Action = Action.None;
         }
@@ -174,20 +174,14 @@ public class Player : NetworkBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                if (handLength < 8)
-                {
-                    addToHand(deck.DrawBasic());
-                }
+                addToHand(deck.DrawBasic());
             }
         }
         if (drawnCard == Card.Pot)
         {
             for (int i = 0; i < 2; i++)
             {
-                if (handLength < 8)
-                {
-                    addToHand(deck.DrawBasic());
-                }
+                addToHand(deck.DrawBasic());
             }
         }
         if (hand[handLength - 1] == Card.Trainer)
@@ -236,12 +230,6 @@ public class Player : NetworkBehaviour
             }
         }
 
-    }
-
-    private IEnumerator Ability()
-    {
-        yield return new WaitForSeconds(1);
-        AnonomlyEffect(hand[handLength - 1]);
     }
 
 
