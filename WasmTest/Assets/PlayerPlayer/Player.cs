@@ -59,10 +59,7 @@ public class Player : NetworkBehaviour
             StartCoroutine(Ability());
 
 
-            if (handTotal > 21)
-            {
-                playerStatus = PlayerStatus.Bust;
-            }
+            
 
             inputs.Action = Action.None;
         }
@@ -112,11 +109,16 @@ public class Player : NetworkBehaviour
         handTotal += card.Value();
         var clip = Resources.Load<AudioClip>($"CardDrawSounds/{card.SoundEffect()}");
         audioSource.PlayOneShot(clip, 1);
+        if (handTotal > 21)
+            {
+                playerStatus = PlayerStatus.Bust;
+            }
     }
 
     //prototyping discarding
     private void removeFromHand(int index)
     {
+        handTotal -= hand.Get(index).Value();
         hand.Set(index, Card.Empty);
     }
 
@@ -214,6 +216,7 @@ public class Player : NetworkBehaviour
             if (temp == 0)
             {
                 removeFromHand(handLength-2);
+                
             }
             if (temp == 1)
             {
@@ -227,10 +230,12 @@ public class Player : NetworkBehaviour
         }
         if(hand[handLength-1] == Card.Explode)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
-
-                addToHand(deck.DrawBasic());
+                if (handLength < 8)
+                {
+                    addToHand(deck.DrawBasic());
+                }
             }
         }
 
